@@ -1,0 +1,34 @@
+
+name: PR cloud run service deploy
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - '.github/workflows/pr-cloud-run-deploy.yaml'
+
+  pull_request:
+    branches:
+      - dev
+      - main
+    paths:
+      - '.github/workflows/pr-cloud-run-deploy.yaml'
+
+jobs:
+  job_id:
+    steps:
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: 'Deploy to Cloud Run'
+        uses: 'google-github-actions/deploy-cloudrun@v0'
+        with:
+          image: 'gcr.io/ingka-vp-oib-dev/oib-mb-bonus-logic'
+          service: 'hello-cloud-run'
+
+
+
