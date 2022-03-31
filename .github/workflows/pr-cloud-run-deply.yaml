@@ -22,15 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-          with:
-            fetch-depth: 2  # OR "0" -> To retrieve all history.
+        with:
+          fetch-depth: 2  # OR "0" -> To retrieve all history.
 
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v11.5
         with:
-        files: |
-          ./
+          files: |
+            ./
       - id: 'auth'
         if: steps.changed-files.outputs.any_changed == 'true'
         uses: 'google-github-actions/auth@v0'
@@ -44,7 +44,7 @@ jobs:
         run: |
           gcloud auth configure-docker $REGISTRY_HOSTNAME
       - name: Build
-        run: gcloud builds submit --tag eu.gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --project=$PROJECT_ID
+        run: gcloud builds submit --tag $REGISTRY_HOSTNAME/$PROJECT_ID/$APP_ID:$GITHUB_SHA --project=$PROJECT_ID
 
       - name: Deploy
-        run: gcloud run deploy $APP_ID --image eu.gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --project=$PROJECT_ID --allow-unauthenticated
+        run: gcloud run deploy $APP_ID --image $REGISTRY_HOSTNAME/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --project=$PROJECT_ID --allow-unauthenticated
