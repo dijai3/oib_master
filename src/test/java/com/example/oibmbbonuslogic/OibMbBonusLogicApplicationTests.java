@@ -1,10 +1,10 @@
-package com.oibdemo;
+package com.example.oibmbbonuslogic;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OibdemoApplicationTests {
+class OibMbBonusLogicApplicationTests {
 
     @Test
     void contextLoads() {

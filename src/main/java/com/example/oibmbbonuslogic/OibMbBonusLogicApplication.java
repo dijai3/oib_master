@@ -1,4 +1,4 @@
-package com.oibdemo;
+package com.example.oibmbbonuslogic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-
-public class OibdemoApplication {
+public class OibMbBonusLogicApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OibdemoApplication.class, args);
+        SpringApplication.run(OibMbBonusLogicApplication.class, args);
     }
-
 
     @GetMapping("/hello")
     public String getHelloWorldString(){

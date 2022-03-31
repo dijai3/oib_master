@@ -4,9 +4,8 @@ on:
   pull_request:
     branches:
       - dev
-      - main
     paths:
-      - '.github/workflows/pr-cloud-run-deploy.yaml'
+      - '.github/workflows/pr-cloud-run-build-image.yaml'
 
 jobs:
   cloud_run_service_check:
@@ -16,20 +15,20 @@ jobs:
         shell: bash
         working-directory: src
     env:
-      IMAGE_NAME: pr_oib_bonus_logic
+      IMAGE_NAME: image_oib_bonus_logic
       REGISTRY_HOSTNAME: eu.gcr.io
-      GCLOUD_PROJECT_ID: ingka-vp-oib-dev
+      GCLOUD_PROJECT_ID: ${{ secrets.RUN_PROJECT }}
 
     strategy:
       fail-fast: false
     steps:
-        - name: checkout
+      - name: checkout
         uses: actions/checkout@v2
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
           project_id: ${{ env.GCLOUD_PROJECT_ID }}
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.RUN_SA_KEY }}
           create_credentials_file: true
 
       # Configure docker to use the gcloud command-line tool as a credential helper
@@ -70,4 +69,4 @@ jobs:
 
       - name: Test docker image
         run: |
-          docker run -d -p 8088:8088 ${{ steps.setvars.outputs.image }}:test
+          docker run -d -p 8080:8080 ${{ steps.setvars.outputs.image }}:test

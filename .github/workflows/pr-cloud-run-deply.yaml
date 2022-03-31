@@ -1,34 +1,110 @@
 
-name: PR cloud run service deploy
+name: Push cloud run service deploy
 
 on:
   push:
     branches:
       - dev
-      - main
-    paths:
-      - '.github/workflows/pr-cloud-run-deploy.yaml'
+
 
   pull_request:
     branches:
       - dev
-      - main
-    paths:
-      - '.github/workflows/pr-cloud-run-deploy.yaml'
+
 
 jobs:
-  job_id:
+  deploy-cloud-run-service:
+    name: Deploy cloud-run-service
+    strategy:
+      fail-fast: false
+    defaults:
+      run:
+        shell: bash
+    env:
+      IMAGE_NAME: image_oib_bonus_logic
+      REGISTRY_HOSTNAME: eu.gcr.io
+
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2  # OR "0" -> To retrieve all history.
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v11.5
+        with:
+          files: |
+            ./
+
       - id: 'auth'
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: 'google-github-actions/auth@v0'
         with:
+          project_id: ${{ secrets.RUN_PROJECT }}
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          create_credentials_file: true
 
-      - name: 'Deploy to Cloud Run'
-        uses: 'google-github-actions/deploy-cloudrun@v0'
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - name: Set up docker to authenticate # via gcloud command-line tool.
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          gcloud auth configure-docker $REGISTRY_HOSTNAME
+      # Generate meta info to be used later in the docker build and push
+      - name: Docker meta
+        id: meta
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: docker/metadata-action@v3
         with:
-          image: 'gcr.io/ingka-vp-oib-dev/oib-mb-bonus-logic'
-          service: 'hello-cloud-run'
+          images: ${{ env.REGISTRY_HOSTNAME }}/${{ secrets.RUN_PROJECT }}/${{ env.IMAGE_NAME }}
+          labels: |
+            maintainer=PD-COPP
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.description=nodejs service to transform raw data to canonical
+            org.opencontainers.image.vendor=INGKA
+          flavor: |
+            latest=true
+      - name: Set variables
+        id: setvars
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "::set-output name=image::${{ env.REGISTRY_HOSTNAME }}/${{ needs.deploy-infra-canonical.outputs.gcloud_project }}/${{ env.IMAGE_NAME }}"
+          echo "::set-output name=service_name::kronos-canonical-service-${{ needs.deploy-infra-canonical.outputs.phase }}"
+      # setup Docker buld action
+      - name: Set up Docker Buildx
+        id: buildx
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build image and push to Docker Hub and GitHub Container Registry
+        id: docker_build
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          # relative path to the place where source code with Dockerfile is located
+          context: ./service-canonical
+          target: deploy
+          # Note: tags has to be all lower-case
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+            VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+            REVISION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+      # Deploy container to Cloud Run
+      - name: 'Deploy Docker image to Cloud Run'
+        if: steps.changed-files.outputs.any_changed == 'true'
+        working-directory: service-canonical
+        run: |
+          gcloud run deploy ${{ steps.setvars.outputs.service_name }} \
+          --image ${{ steps.setvars.outputs.image }}@${{ steps.docker_build.outputs.digest }} \
+          --no-allow-unauthenticated \
+          --region europe-west1 \
+          --platform managed \
+          --service-account ingka-pdpp-kronos-cr-canonical@${{ needs.deploy-infra-canonical.outputs.gcloud_project }}.iam.gserviceaccount.com \
+          --set-env-vars NODE_ENV=${{ needs.deploy-infra-canonical.outputs.phase }}
+  
 
 
 
