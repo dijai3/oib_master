@@ -15,6 +15,6 @@ public class OibMbBonusLogicApplication {
 
     @GetMapping("/hello")
     public String getHelloWorldString(){
-        return "Hey Docker is working!!!";
+        return "First Try for GitHub Action!!!";
     }
 }
