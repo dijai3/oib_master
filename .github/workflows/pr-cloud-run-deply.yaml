@@ -1,111 +1,35 @@
 
-name: Push cloud run service deploy
+name: Deploy to Cloud Run
 
 on:
   push:
     branches:
       - dev
-
-
   pull_request:
     branches:
       - dev
 
+env:
+  PROJECT_ID: ${{secrets.RUN_PROJECT}}
+  APP_ID: test-deploy
+  RUN_REGION: europe-west1
+  SA_KEY_JSON: ${{secrets.RUN_SA_KEY}}
 
 jobs:
-  deploy-cloud-run-service:
-    name: Deploy cloud-run-service
-    strategy:
-      fail-fast: false
-    defaults:
-      run:
-        shell: bash
-    env:
-      IMAGE_NAME: image_oib_bonus_logic
-      REGISTRY_HOSTNAME: eu.gcr.io
-      SERVICE_NAME: test-deploy
-
+  deploy:
+    name: Deploy to Cloud Run
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: GoogleCloudPlatform/github-actions/setup-cloud@master
         with:
-          fetch-depth: 2  # OR "0" -> To retrieve all history.
+          version: "290.0.1"
+          service_account_key: ${{secrets.RUN_SA_KEY}}
+          project_id: ${{secrets.RUN_PROJECT}}
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v11.5
-        with:
-          files: |
-            ./
+      - name: Build
+        run: gcloud builds submit --tag eu.gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
 
-      - id: 'auth'
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          project_id: ${{ secrets.RUN_PROJECT }}
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-          create_credentials_file: true
-
-      # Configure docker to use the gcloud command-line tool as a credential helper
-      - name: Set up docker to authenticate # via gcloud command-line tool.
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          gcloud auth configure-docker $REGISTRY_HOSTNAME
-      # Generate meta info to be used later in the docker build and push
-      - name: Docker meta
-        id: meta
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.REGISTRY_HOSTNAME }}/${{ secrets.RUN_PROJECT }}/${{ env.IMAGE_NAME }}
-          labels: |
-            maintainer=OIB-MB
-            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
-            org.opencontainers.image.description=spring boot service to calculate bonus 
-            org.opencontainers.image.vendor=INGKA
-          flavor: |
-            latest=true
-      - name: Set variables
-        id: setvars
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          echo "::set-output name=image::${{ env.REGISTRY_HOSTNAME }}/${{ secrets.RUN_PROJECT }}/${{ env.IMAGE_NAME }}"
-          echo "::set-output name=service_name::${{env.SERVICE_NAME}}"
-      # setup Docker buld action
-      - name: Set up Docker Buildx
-        id: buildx
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build image and push to Docker Hub and GitHub Container Registry
-        id: docker_build
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          # relative path to the place where source code with Dockerfile is located
-          context: ./
-          target: deploy
-          # Note: tags has to be all lower-case
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
-            VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
-            REVISION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
-      # Deploy container to Cloud Run
-      - name: 'Deploy Docker image to Cloud Run'
-        if: steps.changed-files.outputs.any_changed == 'true'
-        working-directory: service-canonical
-        run: |
-          gcloud run deploy ${{ steps.setvars.outputs.service_name }} \
-          --image ${{ steps.setvars.outputs.image }}@${{ steps.docker_build.outputs.digest }} \
-          --no-allow-unauthenticated \
-          --region europe-west1 \
-          --platform managed \
-          --service-account cloud-run@${{ secrets.RUN_PROJECT }}.iam.gserviceaccount.com \
-        # --set-env-vars NODE_ENV=${{ needs.deploy-infra-canonical.outputs.phase }}
-  
-
-
-
+      - name: Deploy
+        run: gcloud run deploy $APP_ID --image eu.gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --project=$PROJECT_ID --allow-unauthenticated
