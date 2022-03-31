@@ -38,6 +38,8 @@ jobs:
           project_id: ${{ secrets.RUN_PROJECT }}
           credentials_json: ${{ secrets.RUN_SA_KEY }}
           create_credentials_file: true
+      - name: Verify Package
+        run: mvn clean install
     # Configure docker to use the gcloud command-line tool as a credential helper
       - name: Set up docker to authenticate # via gcloud command-line tool.
         if: steps.changed-files.outputs.any_changed == 'true'
