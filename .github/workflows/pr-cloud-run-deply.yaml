@@ -14,18 +14,35 @@ env:
   APP_ID: test-deploy
   RUN_REGION: europe-west1
   SA_KEY_JSON: ${{secrets.RUN_SA_KEY}}
+  REGISTRY_HOSTNAME: eu.gcr.io
 
 jobs:
-  deploy:
+  deploy-cloud-run-service:
     name: Deploy to Cloud Run
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          version: "290.0.1"
-          service_account_key: ${{secrets.RUN_SA_KEY}}
-          project_id: ${{secrets.RUN_PROJECT}}
+          with:
+            fetch-depth: 2  # OR "0" -> To retrieve all history.
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v11.5
+        with:
+        files: |
+          ./
+      - id: 'auth'
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          project_id: ${{ secrets.RUN_PROJECT }}
+          credentials_json: ${{ secrets.RUN_SA_KEY }}
+          create_credentials_file: true
+    # Configure docker to use the gcloud command-line tool as a credential helper
+      - name: Set up docker to authenticate # via gcloud command-line tool.
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          gcloud auth configure-docker $REGISTRY_HOSTNAME
       - name: Build
         run: gcloud builds submit --tag eu.gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --project=$PROJECT_ID
 
