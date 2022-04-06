@@ -17,6 +17,7 @@ import com.google.cloud.Timestamp;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryError;
 import com.google.cloud.bigquery.BigQueryException;
+import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.InsertAllRequest;
 import com.google.cloud.bigquery.InsertAllResponse;
 import com.google.cloud.bigquery.QueryJobConfiguration;
@@ -31,6 +32,7 @@ import com.ikea.oibmb.service.BusinessLogicService;
 @Service
 public class BusinessLogicServiceImpl implements BusinessLogicService {
 
+  
     private BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 
     @Value("${spring.cloud.gcp.project-id}")
