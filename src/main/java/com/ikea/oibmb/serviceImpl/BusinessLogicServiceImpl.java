@@ -32,11 +32,10 @@ import com.ikea.oibmb.service.BusinessLogicService;
 @Service
 public class BusinessLogicServiceImpl implements BusinessLogicService {
 
-  
-    private BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
-
     @Value("${spring.cloud.gcp.project-id}")
     private String projectId;
+  
+    private BigQuery bigquery = BigQueryOptions.newBuilder().setProjectId(projectId).build().getService();
 
     @Value("${spring.cloud.gcp.bigquery.dataset-name}")
     private String dataSetName;
