@@ -35,7 +35,8 @@ public class BusinessLogicServiceImpl implements BusinessLogicService {
     @Value("${spring.cloud.gcp.project-id}")
     private String projectId;
   
-    private BigQuery bigquery = BigQueryOptions.newBuilder().setProjectId(projectId).build().getService();
+    @Autowired
+    private BigQuery bigquery;// = BigQueryOptions.newBuilder().setProjectId(projectId).build().getService();
 
     @Value("${spring.cloud.gcp.bigquery.dataset-name}")
     private String dataSetName;
