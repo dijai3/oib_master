@@ -31,8 +31,7 @@ import com.ikea.oibmb.service.BusinessLogicService;
 @Service
 public class BusinessLogicServiceImpl implements BusinessLogicService {
 
-    @Autowired
-    private BigQuery bigquery;
+    private BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 
     @Value("${spring.cloud.gcp.project-id}")
     private String projectId;
