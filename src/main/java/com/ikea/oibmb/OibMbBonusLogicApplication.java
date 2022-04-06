@@ -12,11 +12,11 @@ public class OibMbBonusLogicApplication {
         SpringApplication.run(OibMbBonusLogicApplication.class, args);
     }
 
-    @Bean
-    public BigQuery test(){
-        // Initialize client that will be used to send requests. This client only needs to be created
-            // once, and can be reused for multiple requests.
-            return BigQueryOptions.getDefaultInstance().getService();
-    }
+//     @Bean
+//     public BigQuery test(){
+//         // Initialize client that will be used to send requests. This client only needs to be created
+//             // once, and can be reused for multiple requests.
+//             return BigQueryOptions.getDefaultInstance().getService();
+//     }
 
 }
