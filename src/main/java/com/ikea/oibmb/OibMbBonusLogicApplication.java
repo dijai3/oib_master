@@ -3,6 +3,7 @@ package com.ikea.oibmb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
@@ -12,8 +13,12 @@ import org.springframework.beans.factory.annotation.Value;
 
 @SpringBootApplication
 public class OibMbBonusLogicApplication {
+
+
     public static void main(String[] args) {
+        
         SpringApplication.run(OibMbBonusLogicApplication.class, args);
+     
     }
 
     @Value("${spring.cloud.gcp.project-id}")
@@ -21,11 +26,16 @@ public class OibMbBonusLogicApplication {
 
     @Bean
     public BigQuery getInstance() throws IOException {
-        
+
         BigQuery bigQuery = BigQueryOptions.newBuilder().setProjectId(projectId)
                 .build().getService();
 
         return bigQuery;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }
