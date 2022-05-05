@@ -24,10 +24,25 @@ public final class OIBConstants {
     //PAOM Constants
     public static final String PersonId = "PersonId";
     public static final String EmployeeId = "EmployeeId";
+    public static final String EmailId = "EmailId";
     public static final String EmploymentStatus = "EmploymentStatus";
+    public static final String TerminationDate = "TerminationDate";
+    public static final String LegalFirstName = "LegalFirstName";
+    public static final String LegalLastName = "LegalLastName";
     public static final String CountryKey = "CountryKey";
+    public static final String CompanyCode = "CompanyCode";
     public static final String CostCentre = "CostCentre";
+    public static final String JobTitle = "JobTitle";
     public static final String BusinessUnit = "BusinessUnit";
-    public static final Integer PAGE_SIZE = 200;//500
+    public static final String BusinessUnitType = "BusinessUnitType";
+    public static final String DateOfBirth = "DateOfBirth";
+    public static final String CompanyName = "CompanyName";
+    public static final String PersonalArea = "PersonalArea";
+    public static final String PersonalAreaName = "PersonalAreaName";
+    public static final String PersonalSubArea = "PersonalSubArea";
+    public static final String EmployeeGroup = "EmployeeGroup";
+    public static final String EmployeeSubGroup = "EmployeeSubGroup";
+    
+    public static final Integer PAGE_SIZE = 1;//500
 
 }

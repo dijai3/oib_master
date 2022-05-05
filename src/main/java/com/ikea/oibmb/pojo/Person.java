@@ -16,8 +16,8 @@ public class Person {
    
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate hireDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate terminationDate;
+    
+    private String terminationDate;
     
     private String legalFirstName;
     
@@ -26,18 +26,19 @@ public class Person {
     private String gender;
     
     private String countryKey;
-    private Integer companyCode;
+    private String companyCode;
     private String costCentre;
     private String departmentName;
     private String jobTitle;
     
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
+    
+    private String dateOfBirth;
     private String nationality;
     private String companyName;
     
     private String personalArea;
-    private String personalSubAreaName;
+    private String personalSubArea;
+    private String personalAreaName;
     private String employeeGroup;
     private String departmentCode;
     private Integer job;
@@ -46,7 +47,28 @@ public class Person {
     private String orgUnitAbbreviation;
     
     private String managerEmployeeId;
-    private String bussinessUnit;
+    private String businessUnit;
+    private String businessUnitType;
+    private String employeeSubGroup;
+   
+    public String getEmployeeSubGroup() {
+        return employeeSubGroup;
+    }
+    public void setEmployeeSubGroup(String employeeSubGroup) {
+        this.employeeSubGroup = employeeSubGroup;
+    }
+    public String getPersonalAreaName() {
+        return personalAreaName;
+    }
+    public void setPersonalAreaName(String personalAreaName) {
+        this.personalAreaName = personalAreaName;
+    }
+    public String getBusinessUnitType() {
+        return businessUnitType;
+    }
+    public void setBusinessUnitType(String businessUnitType) {
+        this.businessUnitType = businessUnitType;
+    }
     public String getPersonId() {
         return personId;
     }
@@ -83,12 +105,7 @@ public class Person {
     public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
-    public LocalDate getTerminationDate() {
-        return terminationDate;
-    }
-    public void setTerminationDate(LocalDate terminationDate) {
-        this.terminationDate = terminationDate;
-    }
+   
     public String getLegalFirstName() {
         return legalFirstName;
     }
@@ -119,10 +136,11 @@ public class Person {
     public void setCountryKey(String countryKey) {
         this.countryKey = countryKey;
     }
-    public Integer getCompanyCode() {
+  
+    public String getCompanyCode() {
         return companyCode;
     }
-    public void setCompanyCode(Integer companyCode) {
+    public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
     }
     public String getCostCentre() {
@@ -143,12 +161,7 @@ public class Person {
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+    
     public String getNationality() {
         return nationality;
     }
@@ -167,11 +180,12 @@ public class Person {
     public void setPersonalArea(String personalArea) {
         this.personalArea = personalArea;
     }
-    public String getPersonalSubAreaName() {
-        return personalSubAreaName;
+ 
+    public String getPersonalSubArea() {
+        return personalSubArea;
     }
-    public void setPersonalSubAreaName(String personalSubAreaName) {
-        this.personalSubAreaName = personalSubAreaName;
+    public void setPersonalSubArea(String personalSubArea) {
+        this.personalSubArea = personalSubArea;
     }
     public String getEmployeeGroup() {
         return employeeGroup;
@@ -215,13 +229,24 @@ public class Person {
     public void setManagerEmployeeId(String managerEmployeeId) {
         this.managerEmployeeId = managerEmployeeId;
     }
-    public String getBussinessUnit() {
-        return bussinessUnit;
+    public String getBusinessUnit() {
+        return businessUnit;
     }
-    public void setBussinessUnit(String bussinessUnit) {
-        this.bussinessUnit = bussinessUnit;
+    public void setBusinessUnit(String businessUnit) {
+        this.businessUnit = businessUnit;
     }
-
+    public String getTerminationDate() {
+        return terminationDate;
+    }
+    public void setTerminationDate(String terminationDate) {
+        this.terminationDate = terminationDate;
+    }
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
     
 
    
