@@ -10,7 +10,7 @@ on:
 
 env:
   PROJECT_ID: ${{secrets.RUN_PROJECT}}
-  APP_ID: OIB-Application
+  APP_ID: oib-application
   RUN_REGION: europe-west1
   SA_KEY_JSON: ${{secrets.RUN_SA_KEY}}
   REGISTRY_HOSTNAME: eu.gcr.io
