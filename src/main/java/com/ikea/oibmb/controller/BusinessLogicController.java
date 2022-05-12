@@ -2,6 +2,7 @@ package com.ikea.oibmb.controller;
 import java.util.List;
 
 import com.ikea.oibmb.pojo.Payroll;
+import com.ikea.oibmb.service.BonusGoalDataService;
 import com.ikea.oibmb.service.BusinessLogicService;
 import com.ikea.oibmb.service.PAOMService;
 import com.ikea.oibmb.utils.SecretManagerUtils;
@@ -21,17 +22,18 @@ public class BusinessLogicController {
     private PAOMService pService;
 
     @Autowired
-    private SecretManagerUtils utils;
+    private BonusGoalDataService bService;
 
-    @GetMapping("/hello")
-    public  List<Payroll> helloWorld(){
-        
-        return service.readDataFromBigquery();
+    @GetMapping("/processPAOM")
+    public String test(){
+        pService.fetchDataFromPAOM();
+        return "PAOM data has been process successfully!!!";
     }
 
-    @GetMapping("/testPAOM")
-    public void test(){
-        pService.fetchDataFromPAOM();
+    @GetMapping("/processcappinghrs")
+    public String readfile(){
+        bService.readfile();
+        return "Capping hrs data has been process successfully!!!";
     }
     
 }

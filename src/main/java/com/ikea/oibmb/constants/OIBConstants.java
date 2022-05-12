@@ -42,6 +42,11 @@ public final class OIBConstants {
     public static final String PersonalSubArea = "PersonalSubArea";
     public static final String EmployeeGroup = "EmployeeGroup";
     public static final String EmployeeSubGroup = "EmployeeSubGroup";
+
+    //CappingHrs Constants
+    public static final String Business_Unit = "Business_Unit";
+    public static final String FTE_Threshold = "FTE_Threshold";
+    public static final String Country = "Country";
     
     public static final Integer PAGE_SIZE = 1;//500
 
