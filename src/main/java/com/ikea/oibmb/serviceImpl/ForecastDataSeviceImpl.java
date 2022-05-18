@@ -4,20 +4,19 @@ import com.ikea.oibmb.constants.OIBConstants;
 import com.ikea.oibmb.mapper.ForeCastDataMapper;
 import com.ikea.oibmb.pojo.ForeCastData;
 import com.ikea.oibmb.service.ForecastDataService;
+import com.ikea.oibmb.utils.FileUtility;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
@@ -29,7 +28,6 @@ import com.google.cloud.bigquery.TableId;
 import com.google.cloud.bigquery.InsertAllRequest.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.apache.commons.io.FileUtils;
 
 
 @Service
@@ -60,7 +58,7 @@ public class ForecastDataSeviceImpl implements ForecastDataService {
     public void readfile() {
         Blob blob = storage.get(BlobId.of(bucketName, objectName));
         ForeCastDataMapper mapper = new ForeCastDataMapper();
-        File tempFile = getTempFileFromString(new String(blob.getContent()));
+        File tempFile = FileUtility.getTempFileFromString(new String(blob.getContent()));
         CSVReader reader;
         List<ForeCastData> foreCastDataList = new ArrayList<>();
         try {
@@ -73,23 +71,10 @@ public class ForecastDataSeviceImpl implements ForecastDataService {
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
-        insertRecord(foreCastDataList);
+        insertRecords(getBuilder(foreCastDataList));
     }
 
-    private File getTempFileFromString(String fileContent){
-        File file=null;
-        try {
-            file = File.createTempFile("temp", ".csv");
-            FileUtils.writeStringToFile(file, fileContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return file;
-    }
-
-    private void insertRecord(List<ForeCastData> foreCastData) {
-        InsertAllRequest.Builder builder = getBuilder(foreCastData);
+    private void insertRecords(InsertAllRequest.Builder builder) {
         InsertAllResponse response = bigquery.insertAll(builder.build());
         if (response.hasErrors()) {
             for (Map.Entry<Long, List<BigQueryError>> entry : response.getInsertErrors().entrySet()) {

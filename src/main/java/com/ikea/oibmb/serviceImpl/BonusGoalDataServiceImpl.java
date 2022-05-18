@@ -4,10 +4,19 @@ import com.ikea.oibmb.constants.OIBConstants;
 import com.ikea.oibmb.mapper.BonusGoalDataMapper;
 import com.ikea.oibmb.pojo.CapingHrs;
 import com.ikea.oibmb.service.BonusGoalDataService;
+
+import com.ikea.oibmb.utils.FileUtility;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,21 +60,29 @@ public class BonusGoalDataServiceImpl implements BonusGoalDataService {
     public void readfile() {
         Blob blob = storage.get(BlobId.of(bucketName, objectName));
         BonusGoalDataMapper mapper = new BonusGoalDataMapper();
-        List<CapingHrs> capingHrs= mapper.getCapingHrsListFromFileContent(new String(blob.getContent()));       
-        insertRecord(capingHrs);
-
+        File tempFile = FileUtility.getTempFileFromString(new String(blob.getContent()));
+        CSVReader reader;
+        List<CapingHrs> foreCastDataList = new ArrayList<>();
+        try {
+            reader = new CSVReader(new FileReader(tempFile));
+            reader.skip(1);
+            String [] nextLine;  
+            while ((nextLine = reader.readNext()) != null)  {
+                foreCastDataList.add(mapper.getCapingHrsFromString(nextLine));
+            }         
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }       
+        insertRecords(getBuilder(foreCastDataList));
     }
 
-    private void insertRecord(List<CapingHrs> capingHrs) {
-        InsertAllRequest.Builder builder = getBuilder(capingHrs);
+    private void insertRecords(InsertAllRequest.Builder builder) {
         InsertAllResponse response = bigquery.insertAll(builder.build());
-
         if (response.hasErrors()) {
             for (Map.Entry<Long, List<BigQueryError>> entry : response.getInsertErrors().entrySet()) {
                 System.out.println("Response error: \n" + entry.getValue());
             }
         }
-
     }
 
     private Builder getBuilder(List<CapingHrs> capingHrs) {
@@ -79,8 +96,5 @@ public class BonusGoalDataServiceImpl implements BonusGoalDataService {
             builder.addRow(rowContent);
         });
         return builder;
-    }
-
-
-    
+    }    
 }
