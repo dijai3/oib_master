@@ -32,7 +32,7 @@ public class OIBController {
 
     @GetMapping("/processcappinghrs")
     public String readCappingHrsData(){
-        bService.readfile();
+        bService.getCapingHrsList();
         return "Capping hrs data has been process successfully!!!";
     }
 
