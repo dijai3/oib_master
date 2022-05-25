@@ -3,6 +3,7 @@ package com.ikea.oibmb.serviceImpl;
 import com.ikea.oibmb.constants.OIBConstants;
 import com.ikea.oibmb.mapper.BonusGoalDataMapper;
 import com.ikea.oibmb.pojo.CapingHrs;
+import com.ikea.oibmb.schema.OIBSchema;
 import com.ikea.oibmb.service.BonusGoalDataService;
 
 import com.ikea.oibmb.utils.FileUtility;
@@ -26,9 +27,11 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryError;
+import com.google.cloud.bigquery.BigQueryException;
 import com.google.cloud.bigquery.InsertAllRequest;
 import com.google.cloud.bigquery.InsertAllResponse;
 import com.google.cloud.bigquery.TableId;
+import com.google.cloud.bigquery.TableResult;
 import com.google.cloud.bigquery.InsertAllRequest.Builder;
 
 
@@ -53,11 +56,9 @@ public class BonusGoalDataServiceImpl implements BonusGoalDataService {
     @Value("${spring.cloud.gcp.cappinghrs.table-name}")
     private String tableName;
 
-    @Autowired
-    private BigQuery bigquery;
-
+       
     @Override
-    public void readfile() {
+    public List<CapingHrs> getCapingHrsList() {
         Blob blob = storage.get(BlobId.of(bucketName, objectName));
         BonusGoalDataMapper mapper = new BonusGoalDataMapper();
         File tempFile = FileUtility.getTempFileFromString(new String(blob.getContent()));
@@ -73,9 +74,10 @@ public class BonusGoalDataServiceImpl implements BonusGoalDataService {
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }       
-        insertRecords(getBuilder(foreCastDataList));
+        return foreCastDataList;
     }
 
+    /*
     private void insertRecords(InsertAllRequest.Builder builder) {
         InsertAllResponse response = bigquery.insertAll(builder.build());
         if (response.hasErrors()) {
@@ -96,5 +98,6 @@ public class BonusGoalDataServiceImpl implements BonusGoalDataService {
             builder.addRow(rowContent);
         });
         return builder;
-    }    
+    }
+    */ 
 }

@@ -8,10 +8,14 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import com.ikea.oibmb.constants.OIBConstants;
+import com.ikea.oibmb.mapper.POAMDataMapper;
+import com.ikea.oibmb.mapper.PayrollDataMapper;
 import com.ikea.oibmb.pojo.PAOMResponse;
+import com.ikea.oibmb.pojo.Paom;
 import com.ikea.oibmb.pojo.Person;
 import com.ikea.oibmb.pojo.TokenRequest;
 import com.ikea.oibmb.pojo.TokenResponse;
+import com.ikea.oibmb.schema.OIBSchema;
 import com.ikea.oibmb.service.PAOMService;
 import com.ikea.oibmb.utils.SecretManagerUtils;
 
@@ -19,9 +23,11 @@ import org.springframework.http.HttpHeaders;
 import java.util.Collections;
 import org.springframework.http.MediaType;
 import com.google.cloud.bigquery.TableId;
+import com.google.cloud.bigquery.TableResult;
 import com.google.cloud.bigquery.InsertAllRequest.Builder;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryError;
+import com.google.cloud.bigquery.BigQueryException;
 import com.google.cloud.bigquery.InsertAllRequest;
 import com.google.cloud.bigquery.InsertAllResponse;
 
@@ -72,6 +78,19 @@ public class PAOMServiceImpl implements PAOMService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Override
+    public List<Person> getPAOMData() {
+        try {
+            OIBSchema schema = new OIBSchema();
+            TableResult tableData = bigquery.listTableData(dataSetName, paomTableName, schema.getPAOMShema());
+            POAMDataMapper mapper = new POAMDataMapper();
+            return mapper.getPersonsFromQueryResult(tableData);
+        } catch (BigQueryException e) {
+            System.out.println("Query not performed \n" + e.toString());
+        }
+        return null;
+    }
 
 
     private String getClientId(){
@@ -196,4 +215,5 @@ public class PAOMServiceImpl implements PAOMService {
 
         return builder;
     }
+
 }

@@ -11,84 +11,79 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Payroll {
     
-    private String employeeNumber;
-    private String m9C1BU;
-    private String m9C1CostCentre;
-    private int m9C1HourlyRate;
-    private float m9C1TWH;
-    private String m9C1DeductedHours;
-    private int m9C1Level;
-    private String m10C1BU;
-    private String m10C1CostCentre;
-    private int m10C1HourlyRate;
-    private float m10C1TWH;
-    public String getEmployeeNumber() {
-        return employeeNumber;
+    private int personalNumber;
+    private int personnelArea;
+    private int personnelSubArea;
+    private String costCenter;
+    private int ForPeriodPayroll;
+    private int PC205Assignment;
+    private String wageType;
+    private float numberOfHours;
+    private float rate;
+    private float amount;
+    
+    public int getPersonalNumber() {
+        return personalNumber;
     }
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
+    public void setPersonalNumber(int personalNumber) {
+        this.personalNumber = personalNumber;
     }
-    public String getM9C1BU() {
-        return m9C1BU;
+    public int getPersonnelArea() {
+        return personnelArea;
     }
-    public void setM9C1BU(String m9c1bu) {
-        m9C1BU = m9c1bu;
+    public void setPersonnelArea(int personnelArea) {
+        this.personnelArea = personnelArea;
     }
-    public String getM9C1CostCentre() {
-        return m9C1CostCentre;
+    public int getPersonnelSubArea() {
+        return personnelSubArea;
     }
-    public void setM9C1CostCentre(String m9c1CostCentre) {
-        m9C1CostCentre = m9c1CostCentre;
+    public void setPersonnelSubArea(int personnelSubArea) {
+        this.personnelSubArea = personnelSubArea;
     }
-    public int getM9C1HourlyRate() {
-        return m9C1HourlyRate;
+    public String getCostCenter() {
+        return costCenter;
     }
-    public void setM9C1HourlyRate(int m9c1HourlyRate) {
-        m9C1HourlyRate = m9c1HourlyRate;
+    public void setCostCenter(String costCenter) {
+        this.costCenter = costCenter;
     }
-    public float getM9C1TWH() {
-        return m9C1TWH;
+    public int getForPeriodPayroll() {
+        return ForPeriodPayroll;
     }
-    public void setM9C1TWH(float m9c1twh) {
-        m9C1TWH = m9c1twh;
+    public void setForPeriodPayroll(int forPeriodPayroll) {
+        ForPeriodPayroll = forPeriodPayroll;
     }
-    public String getM9C1DeductedHours() {
-        return m9C1DeductedHours;
+    public int getPC205Assignment() {
+        return PC205Assignment;
     }
-    public void setM9C1DeductedHours(String m9c1DeductedHours) {
-        m9C1DeductedHours = m9c1DeductedHours;
+    public void setPC205Assignment(int pC205Assignment) {
+        PC205Assignment = pC205Assignment;
     }
-    public int getM9C1Level() {
-        return m9C1Level;
+    public String getWageType() {
+        return wageType;
     }
-    public void setM9C1Level(int m9c1Level) {
-        m9C1Level = m9c1Level;
+    public void setWageType(String wageType) {
+        this.wageType = wageType;
     }
-    public String getM10C1BU() {
-        return m10C1BU;
+    public float getNumberOfHours() {
+        return numberOfHours;
     }
-    public void setM10C1BU(String m10c1bu) {
-        m10C1BU = m10c1bu;
+    public void setNumberOfHours(float numberOfHours) {
+        this.numberOfHours = numberOfHours;
     }
-    public String getM10C1CostCentre() {
-        return m10C1CostCentre;
+    public float getRate() {
+        return rate;
     }
-    public void setM10C1CostCentre(String m10c1CostCentre) {
-        m10C1CostCentre = m10c1CostCentre;
+    public void setRate(float rate) {
+        this.rate = rate;
     }
-    public int getM10C1HourlyRate() {
-        return m10C1HourlyRate;
+    public float getAmount() {
+        return amount;
     }
-    public void setM10C1HourlyRate(int m10c1HourlyRate) {
-        m10C1HourlyRate = m10c1HourlyRate;
-    }
-    public float getM10C1TWH() {
-        return m10C1TWH;
-    }
-    public void setM10C1TWH(float m10c1twh) {
-        m10C1TWH = m10c1twh;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
+    
     
     
 }

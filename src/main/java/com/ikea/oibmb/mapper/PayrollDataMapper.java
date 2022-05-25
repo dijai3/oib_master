@@ -2,8 +2,6 @@ package com.ikea.oibmb.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import com.google.cloud.bigquery.FieldValueList;
 import com.google.cloud.bigquery.TableResult;
 import com.ikea.oibmb.constants.OIBConstants;
@@ -21,23 +19,16 @@ public class PayrollDataMapper {
 
     private Payroll getPayrollObject(FieldValueList line) {
         Payroll payroll = new Payroll();
-        payroll.setEmployeeNumber(line.get(OIBConstants.EMPLOYEENUMBER).getValue().toString());
-        payroll.setM9C1BU(line.get(OIBConstants.M9C1BU).getValue().toString());
-        payroll.setM9C1CostCentre(line.get(OIBConstants.M9C1COSTCENTRE).getValue().toString());
-        payroll.setM9C1HourlyRate(Integer.parseInt(line.get(OIBConstants.M9C1HOURLYRATE).getValue().toString()));
-        payroll.setM9C1TWH(Float.parseFloat(line.get(OIBConstants.M9C1TWH).getValue().toString()));
-        if (Optional.ofNullable(line.get(OIBConstants.M9C1DEDUCTEDHOURS).getValue()).isPresent())
-            payroll.setM9C1DeductedHours(line.get(OIBConstants.M9C1DEDUCTEDHOURS).getValue().toString());
-        else
-            payroll.setM9C1DeductedHours(null);
-        payroll.setM9C1Level(Integer.parseInt(line.get(OIBConstants.M9C1LEVEL).getValue().toString()));
-        payroll.setM10C1BU(line.get(OIBConstants.M10C1BU).getValue().toString());
-        payroll.setM10C1CostCentre(line.get(OIBConstants.M10C1COSTCENTRE).getValue().toString());
-        if (Optional.ofNullable(line.get(OIBConstants.M10C1HOURLYRATE).getValue()).isPresent())
-            payroll.setM10C1HourlyRate(Integer.parseInt(line.get(OIBConstants.M10C1HOURLYRATE).getValue().toString()));
-        else
-            payroll.setM10C1HourlyRate(0);
-        payroll.setM10C1TWH(Float.parseFloat(line.get(OIBConstants.M10C1TWH).getValue().toString()));
+        payroll.setPersonalNumber(Integer.parseInt(line.get(OIBConstants.PERSONNEL_NUMBER).getValue().toString()));
+        payroll.setPersonnelArea(Integer.parseInt(line.get(OIBConstants.PERSONNEL_AREA).getValue().toString()));
+        payroll.setPersonnelSubArea(Integer.parseInt(line.get(OIBConstants.PERSONNEL_SUBAREA).getValue().toString()));
+        payroll.setCostCenter(line.get(OIBConstants.COST_CENTER).getValue().toString());
+        payroll.setForPeriodPayroll(Integer.parseInt(line.get(OIBConstants.FOR_PERIOD_PAYROLL).getValue().toString()));
+        payroll.setPC205Assignment(Integer.parseInt(line.get(OIBConstants.PC205_ASSIGNMENT).getValue().toString()));
+        payroll.setWageType(line.get(OIBConstants.WAGE_TYPE).getValue().toString());
+        payroll.setNumberOfHours(Float.parseFloat(line.get(OIBConstants.NUMBER_OF_HOURS).getValue().toString()));
+        payroll.setRate(Float.parseFloat(line.get(OIBConstants.RATE).getValue().toString()));
+        payroll.setAmount(Float.parseFloat(line.get(OIBConstants.AMOUNT).getValue().toString()));
         return payroll;
     }
 

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ikea.oibmb.pojo.Payroll;
 
-public interface BusinessLogicService {
-    public List<Payroll> readDataFromBigquery();
+public interface PayrollService {
+
+    public List<Payroll> getPayrollData();
+
 }
