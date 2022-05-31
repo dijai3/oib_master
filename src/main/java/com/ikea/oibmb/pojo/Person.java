@@ -1,8 +1,10 @@
 package com.ikea.oibmb.pojo;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.api.client.util.DateTime;
 
 
 public class Person {
@@ -15,9 +17,10 @@ public class Person {
     private String employmentStatus;
    
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate hireDate;
+    private DateTime hireDate;
     
-    private String terminationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private DateTime terminationDate;
     
     private String legalFirstName;
     
@@ -32,7 +35,8 @@ public class Person {
     private String jobTitle;
     
     
-    private String dateOfBirth;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private DateTime dateOfBirth;
     private String nationality;
     private String companyName;
     
@@ -50,7 +54,56 @@ public class Person {
     private String businessUnit;
     private String businessUnitType;
     private String employeeSubGroup;
-   
+
+    private String tackStatus;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private DateTime joiningDate;
+    private String oibLevel;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private DateTime OIBLevelStartDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private DateTime OIBLevelEndDate;
+    private String groupFunction;
+    
+    
+  
+    public String getTackStatus() {
+        return tackStatus;
+    }
+    public void setTackStatus(String tackStatus) {
+        this.tackStatus = tackStatus;
+    }
+    public DateTime getJoiningDate() {
+        return joiningDate;
+    }
+    public void setJoiningDate(DateTime joiningDate) {
+        this.joiningDate = joiningDate;
+    }
+    public String getOibLevel() {
+        return oibLevel;
+    }
+    public void setOibLevel(String oibLevel) {
+        this.oibLevel = oibLevel;
+    }
+    public DateTime getOIBLevelStartDate() {
+        return OIBLevelStartDate;
+    }
+    public void setOIBLevelStartDate(DateTime oIBLevelStartDate) {
+        OIBLevelStartDate = oIBLevelStartDate;
+    }
+    public DateTime getOIBLevelEndDate() {
+        return OIBLevelEndDate;
+    }
+    public void setOIBLevelEndDate(DateTime oIBLevelEndDate) {
+        OIBLevelEndDate = oIBLevelEndDate;
+    }
+    public String getGroupFunction() {
+        return groupFunction;
+    }
+    public void setGroupFunction(String groupFunction) {
+        this.groupFunction = groupFunction;
+    }
+  
     public String getEmployeeSubGroup() {
         return employeeSubGroup;
     }
@@ -99,13 +152,7 @@ public class Person {
     public void setEmploymentStatus(String employmentStatus) {
         this.employmentStatus = employmentStatus;
     }
-    public LocalDate getHireDate() {
-        return hireDate;
-    }
-    public void setHireDate(LocalDate hireDate) {
-        this.hireDate = hireDate;
-    }
-   
+      
     public String getLegalFirstName() {
         return legalFirstName;
     }
@@ -235,18 +282,29 @@ public class Person {
     public void setBusinessUnit(String businessUnit) {
         this.businessUnit = businessUnit;
     }
-    public String getTerminationDate() {
+    public DateTime getHireDate() {
+        return hireDate;
+    }
+    public void setHireDate(DateTime hireDate) {
+        this.hireDate = hireDate;
+    }
+    public DateTime getTerminationDate() {
         return terminationDate;
     }
-    public void setTerminationDate(String terminationDate) {
+    public void setTerminationDate(DateTime terminationDate) {
         this.terminationDate = terminationDate;
     }
-    public String getDateOfBirth() {
+    public DateTime getDateOfBirth() {
         return dateOfBirth;
     }
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(DateTime dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+   
+    
+ 
+
+    
     
 
    

@@ -52,6 +52,13 @@ public final class OIBConstants {
     public static final String PersonalSubArea = "PersonalSubArea";
     public static final String EmployeeGroup = "EmployeeGroup";
     public static final String EmployeeSubGroup = "EmployeeSubGroup";
+    public static final String TackStatus = "TackStatus";
+    public static final String JoiningDate = "JoiningDate";
+    public static final String OIBLevel = "OIBLevel";
+    public static final String OIBLevelStartDate = "OIBLevelStartDate";
+    public static final String OIBLevelEndDate = "OIBLevelEndDate";
+    public static final String GroupFunction = "GroupFunction";
+
 
     //CappingHrs & Forecast Constants
     public static final String Business_Unit = "Business_Unit";

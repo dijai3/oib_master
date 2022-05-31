@@ -25,25 +25,32 @@ public class OIBSchema {
     public Schema getPAOMShema() {
         Schema schema = Schema.of(
                 Field.of(OIBConstants.PersonId, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.EmployeeId, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.EmailId, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.EmployeeId, StandardSQLTypeName.STRING),                
                 Field.of(OIBConstants.EmploymentStatus, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.TerminationDate, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.LegalFirstName, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.LegalLastName, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.CountryKey, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.CompanyCode, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.CostCentre, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.JobTitle, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.BusinessUnit, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.EmailId, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.TerminationDate, StandardSQLTypeName.DATETIME),
+                Field.of(OIBConstants.LegalFirstName, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.LegalLastName, StandardSQLTypeName.STRING),         
+                Field.of(OIBConstants.CompanyCode, StandardSQLTypeName.STRING),                
+                Field.of(OIBConstants.JobTitle, StandardSQLTypeName.STRING),                
                 Field.of(OIBConstants.BusinessUnitType, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.DateOfBirth, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.DateOfBirth, StandardSQLTypeName.DATETIME),
                 Field.of(OIBConstants.CompanyName, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.PersonalArea, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.PersonalAreaName, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.PersonalSubArea, StandardSQLTypeName.STRING),
                 Field.of(OIBConstants.EmployeeGroup, StandardSQLTypeName.STRING),
-                Field.of(OIBConstants.EmployeeSubGroup, StandardSQLTypeName.STRING));
+                Field.of(OIBConstants.EmployeeSubGroup, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.TackStatus, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.JoiningDate, StandardSQLTypeName.DATETIME),
+                Field.of(OIBConstants.OIBLevel, StandardSQLTypeName.STRING),
+                Field.of(OIBConstants.OIBLevelStartDate, StandardSQLTypeName.DATETIME),
+                Field.of(OIBConstants.OIBLevelEndDate, StandardSQLTypeName.DATETIME),
+                Field.of(OIBConstants.GroupFunction, StandardSQLTypeName.STRING)            
+                );
         return schema;
     }
 

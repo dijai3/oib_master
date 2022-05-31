@@ -187,7 +187,7 @@ public class PAOMServiceImpl implements PAOMService {
         InsertAllRequest.Builder builder = InsertAllRequest.newBuilder(tableId);
 
         persons.forEach(person -> {
-            Map<String, String> rowContent = new HashMap<String, String>();
+            Map<String, Object> rowContent = new HashMap<String, Object>();
             
             rowContent.put(OIBConstants.PersonId, person.getPersonId());
             rowContent.put(OIBConstants.EmployeeId, person.getEmployeeId());
@@ -209,6 +209,12 @@ public class PAOMServiceImpl implements PAOMService {
             rowContent.put(OIBConstants.PersonalSubArea, person.getPersonalSubArea());
             rowContent.put(OIBConstants.EmployeeGroup, person.getEmployeeGroup());
             rowContent.put(OIBConstants.EmployeeSubGroup, person.getEmployeeSubGroup());
+            rowContent.put(OIBConstants.TackStatus, person.getTackStatus());
+            rowContent.put(OIBConstants.JoiningDate, person.getJoiningDate());
+            rowContent.put(OIBConstants.OIBLevel, person.getOibLevel());
+            rowContent.put(OIBConstants.OIBLevelStartDate, person.getOIBLevelStartDate());
+            rowContent.put(OIBConstants.OIBLevelEndDate, person.getOIBLevelEndDate());
+            rowContent.put(OIBConstants.GroupFunction, person.getGroupFunction());
 
             builder.addRow(rowContent);
         });
