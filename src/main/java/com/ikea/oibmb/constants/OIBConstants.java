@@ -32,32 +32,39 @@ public final class OIBConstants {
 
 
     //PAOM Constants
-    public static final String PersonId = "PersonId";
-    public static final String EmployeeId = "EmployeeId";
-    public static final String EmailId = "EmailId";
-    public static final String EmploymentStatus = "EmploymentStatus";
-    public static final String TerminationDate = "TerminationDate";
-    public static final String LegalFirstName = "LegalFirstName";
-    public static final String LegalLastName = "LegalLastName";
-    public static final String CountryKey = "CountryKey";
-    public static final String CompanyCode = "CompanyCode";
-    public static final String CostCentre = "CostCentre";
-    public static final String JobTitle = "JobTitle";
-    public static final String BusinessUnit = "BusinessUnit";
-    public static final String BusinessUnitType = "BusinessUnitType";
-    public static final String DateOfBirth = "DateOfBirth";
-    public static final String CompanyName = "CompanyName";
-    public static final String PersonalArea = "PersonalArea";
-    public static final String PersonalAreaName = "PersonalAreaName";
-    public static final String PersonalSubArea = "PersonalSubArea";
-    public static final String EmployeeGroup = "EmployeeGroup";
-    public static final String EmployeeSubGroup = "EmployeeSubGroup";
-    public static final String TackStatus = "TackStatus";
+    public static final String CountryCode = "CountryCode";
+    public static final String PersonnelNumber = "PersonnelNumber";
+    public static final String GlobalID = "GlobalID";
+    public static final String Firstname = "Firstname";
+    public static final String Surname = "Surname";
+    public static final String BirthDate = "BirthDate";
+    public static final String JobTitle = "JobTitle";    
+    public static final String WorkEmailAddress = "WorkEmailAddress";
     public static final String JoiningDate = "JoiningDate";
+    public static final String ServiceYearEntry = "ServiceYearEntry";
+    public static final String LeavingDate = "LeavingDate";
+    public static final String IT01StartDate = "IT01StartDate";
+    public static final String IT01EndDate = "IT01EndDate";
+    public static final String PayrollArea = "PayrollArea";
+    public static final String CompanyCode = "CompanyCode";
+    public static final String CompanyName = "CompanyName";
+    public static final String PersonnelArea = "PersonnelArea";
+    public static final String PersonnelAreaName = "PersonnelAreaName";
+    public static final String PersonnelSubarea = "PersonnelSubarea";
+    public static final String EmployeeGroup = "EmployeeGroup";
+    public static final String EmployeeSubgroup = "EmployeeSubgroup";
+    public static final String CostCentre = "CostCentre";
+    public static final String GroupFunction = "GroupFunction";
     public static final String OIBLevel = "OIBLevel";
     public static final String OIBLevelStartDate = "OIBLevelStartDate";
     public static final String OIBLevelEndDate = "OIBLevelEndDate";
-    public static final String GroupFunction = "GroupFunction";
+    public static final String TackStatus = "TackStatus";
+    // public static final String EmploymentStatus = "EmploymentStatus";
+   
+    
+    
+    
+    
 
 
     //CappingHrs & Forecast Constants

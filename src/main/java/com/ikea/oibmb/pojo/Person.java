@@ -4,309 +4,308 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.api.client.util.DateTime;
 
 
 public class Person {
-       
-    private String personId;
-    private String employeeId;
-    private String networkId;
-    private String emailId;
-    
-    private String employmentStatus;
-   
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private DateTime hireDate;
-    
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private DateTime terminationDate;
-    
-    private String legalFirstName;
-    
-    private String legalLastName;
-    private String legalMiddleName;
-    private String gender;
-    
-    private String countryKey;
-    private String companyCode;
-    private String costCentre;
-    private String departmentName;
-    private String jobTitle;
-    
-    
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private DateTime dateOfBirth;
-    private String nationality;
-    private String companyName;
-    
-    private String personalArea;
-    private String personalSubArea;
-    private String personalAreaName;
-    private String employeeGroup;
-    private String departmentCode;
-    private Integer job;
-    private Integer position;
-    private String positionName;
-    private String orgUnitAbbreviation;
-    
-    private String managerEmployeeId;
-    private String businessUnit;
-    private String businessUnitType;
-    private String employeeSubGroup;
 
-    private String tackStatus;
+    @JsonProperty("employeeId")
+    private int personnelNumber;
+
+    @JsonProperty("personId")
+    private int globalID;
+
+    @JsonProperty("countryKey")
+    private String countryCode;
+
+    @JsonProperty("legalFirstName")
+    private String firstName;
+    
+    @JsonProperty("legalLastName")
+    private String surname;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("dateOfBirth")
+    private DateTime birthDate;
+
+    private String jobTitle;
+
+    @JsonProperty("emailId")
+    private String workEmailAddress;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("firstDayAtIKEA")
     private DateTime joiningDate;
-    private String oibLevel;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    // @JsonProperty("firstDayAtIKEA")
+    private DateTime serviceYearEntry;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("terminationDate")
+    private DateTime leavingDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    // @JsonProperty("Organization.BeginDate")
+    private DateTime it01StartDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    // @JsonProperty("Organization.EndDate")
+    private DateTime it01EndDate;
+
+
+    private String payrollArea;
+
+    private int companyCode;
+
+    private String companyName;
+
+    @JsonProperty("personalArea")
+    private String personnelArea;
+
+    @JsonProperty("personalAreaName")
+    private String personnelAreaName;
+
+    @JsonProperty("personalSubArea")
+    private String personnelSubarea;
+
+    private String employeeGroup;
+
+    @JsonProperty("employeeSubGroup")    
+    private String employeeSubgroup;
+
+    private String costCentre;
+
+    private String groupFunction;
+    
+    private int oibLevel;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private DateTime OIBLevelStartDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private DateTime OIBLevelEndDate;
-    private String groupFunction;
-    
-    
-  
-    public String getTackStatus() {
-        return tackStatus;
+
+    private String tackStatus;
+
+    public int getPersonnelNumber() {
+        return personnelNumber;
     }
-    public void setTackStatus(String tackStatus) {
-        this.tackStatus = tackStatus;
+
+    public void setPersonnelNumber(int personnelNumber) {
+        this.personnelNumber = personnelNumber;
     }
-    public DateTime getJoiningDate() {
-        return joiningDate;
+
+    public int getGlobalID() {
+        return globalID;
     }
-    public void setJoiningDate(DateTime joiningDate) {
-        this.joiningDate = joiningDate;
+
+    public void setGlobalID(int globalID) {
+        this.globalID = globalID;
     }
-    public String getOibLevel() {
-        return oibLevel;
+
+    public String getCountryCode() {
+        return countryCode;
     }
-    public void setOibLevel(String oibLevel) {
-        this.oibLevel = oibLevel;
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
-    public DateTime getOIBLevelStartDate() {
-        return OIBLevelStartDate;
+
+    public String getFirstName() {
+        return firstName;
     }
-    public void setOIBLevelStartDate(DateTime oIBLevelStartDate) {
-        OIBLevelStartDate = oIBLevelStartDate;
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    public DateTime getOIBLevelEndDate() {
-        return OIBLevelEndDate;
+
+    public String getSurname() {
+        return surname;
     }
-    public void setOIBLevelEndDate(DateTime oIBLevelEndDate) {
-        OIBLevelEndDate = oIBLevelEndDate;
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
-    public String getGroupFunction() {
-        return groupFunction;
+
+    public DateTime getBirthDate() {
+        return birthDate;
     }
-    public void setGroupFunction(String groupFunction) {
-        this.groupFunction = groupFunction;
+
+    public void setBirthDate(DateTime birthDate) {
+        this.birthDate = birthDate;
     }
-  
-    public String getEmployeeSubGroup() {
-        return employeeSubGroup;
-    }
-    public void setEmployeeSubGroup(String employeeSubGroup) {
-        this.employeeSubGroup = employeeSubGroup;
-    }
-    public String getPersonalAreaName() {
-        return personalAreaName;
-    }
-    public void setPersonalAreaName(String personalAreaName) {
-        this.personalAreaName = personalAreaName;
-    }
-    public String getBusinessUnitType() {
-        return businessUnitType;
-    }
-    public void setBusinessUnitType(String businessUnitType) {
-        this.businessUnitType = businessUnitType;
-    }
-    public String getPersonId() {
-        return personId;
-    }
-    public void setPersonId(String personId) {
-        this.personId = personId;
-    }
-    public String getEmployeeId() {
-        return employeeId;
-    }
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-    public String getNetworkId() {
-        return networkId;
-    }
-    public void setNetworkId(String networkId) {
-        this.networkId = networkId;
-    }
-    public String getEmailId() {
-        return emailId;
-    }
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-    public String getEmploymentStatus() {
-        return employmentStatus;
-    }
-    public void setEmploymentStatus(String employmentStatus) {
-        this.employmentStatus = employmentStatus;
-    }
-      
-    public String getLegalFirstName() {
-        return legalFirstName;
-    }
-    public void setLegalFirstName(String legalFirstName) {
-        this.legalFirstName = legalFirstName;
-    }
-    public String getLegalLastName() {
-        return legalLastName;
-    }
-    public void setLegalLastName(String legalLastName) {
-        this.legalLastName = legalLastName;
-    }
-    public String getLegalMiddleName() {
-        return legalMiddleName;
-    }
-    public void setLegalMiddleName(String legalMiddleName) {
-        this.legalMiddleName = legalMiddleName;
-    }
-    public String getGender() {
-        return gender;
-    }
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-    public String getCountryKey() {
-        return countryKey;
-    }
-    public void setCountryKey(String countryKey) {
-        this.countryKey = countryKey;
-    }
-  
-    public String getCompanyCode() {
-        return companyCode;
-    }
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode;
-    }
-    public String getCostCentre() {
-        return costCentre;
-    }
-    public void setCostCentre(String costCentre) {
-        this.costCentre = costCentre;
-    }
-    public String getDepartmentName() {
-        return departmentName;
-    }
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
+
     public String getJobTitle() {
         return jobTitle;
     }
+
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
-    
-    public String getNationality() {
-        return nationality;
+
+    public String getWorkEmailAddress() {
+        return workEmailAddress;
     }
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
+
+    public void setWorkEmailAddress(String workEmailAddress) {
+        this.workEmailAddress = workEmailAddress;
     }
+
+    public DateTime getJoiningDate() {
+        return joiningDate;
+    }
+
+    public void setJoiningDate(DateTime joiningDate) {
+        this.joiningDate = joiningDate;
+    }
+
+    public DateTime getServiceYearEntry() {
+        return serviceYearEntry;
+    }
+
+    public void setServiceYearEntry(DateTime serviceYearEntry) {
+        this.serviceYearEntry = serviceYearEntry;
+    }
+
+    public DateTime getLeavingDate() {
+        return leavingDate;
+    }
+
+    public void setLeavingDate(DateTime leavingDate) {
+        this.leavingDate = leavingDate;
+    }
+
+    public DateTime getIt01StartDate() {
+        return it01StartDate;
+    }
+
+    public void setIt01StartDate(DateTime it01StartDate) {
+        this.it01StartDate = it01StartDate;
+    }
+
+    public DateTime getIt01EndDate() {
+        return it01EndDate;
+    }
+
+    public void setIt01EndDate(DateTime it01EndDate) {
+        this.it01EndDate = it01EndDate;
+    }
+
+    public String getPayrollArea() {
+        return payrollArea;
+    }
+
+    public void setPayrollArea(String payrollArea) {
+        this.payrollArea = payrollArea;
+    }
+
+    public int getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(int companyCode) {
+        this.companyCode = companyCode;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
+
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
-    public String getPersonalArea() {
-        return personalArea;
+
+    public String getPersonnelArea() {
+        return personnelArea;
     }
-    public void setPersonalArea(String personalArea) {
-        this.personalArea = personalArea;
+
+    public void setPersonnelArea(String personnelArea) {
+        this.personnelArea = personnelArea;
     }
- 
-    public String getPersonalSubArea() {
-        return personalSubArea;
+
+    public String getPersonnelAreaName() {
+        return personnelAreaName;
     }
-    public void setPersonalSubArea(String personalSubArea) {
-        this.personalSubArea = personalSubArea;
+
+    public void setPersonnelAreaName(String personnelAreaName) {
+        this.personnelAreaName = personnelAreaName;
     }
+
+    public String getPersonnelSubarea() {
+        return personnelSubarea;
+    }
+
+    public void setPersonnelSubarea(String personnelSubarea) {
+        this.personnelSubarea = personnelSubarea;
+    }
+
     public String getEmployeeGroup() {
         return employeeGroup;
     }
+
     public void setEmployeeGroup(String employeeGroup) {
         this.employeeGroup = employeeGroup;
     }
-    public String getDepartmentCode() {
-        return departmentCode;
+
+    public String getEmployeeSubgroup() {
+        return employeeSubgroup;
     }
-    public void setDepartmentCode(String departmentCode) {
-        this.departmentCode = departmentCode;
+
+    public void setEmployeeSubgroup(String employeeSubgroup) {
+        this.employeeSubgroup = employeeSubgroup;
     }
-    public Integer getJob() {
-        return job;
+
+    public String getCostCentre() {
+        return costCentre;
     }
-    public void setJob(Integer job) {
-        this.job = job;
+
+    public void setCostCentre(String costCentre) {
+        this.costCentre = costCentre;
     }
-    public Integer getPosition() {
-        return position;
+
+    public String getGroupFunction() {
+        return groupFunction;
     }
-    public void setPosition(Integer position) {
-        this.position = position;
+
+    public void setGroupFunction(String groupFunction) {
+        this.groupFunction = groupFunction;
     }
-    public String getPositionName() {
-        return positionName;
+
+    public int getOibLevel() {
+        return oibLevel;
     }
-    public void setPositionName(String positionName) {
-        this.positionName = positionName;
+
+    public void setOibLevel(int oibLevel) {
+        this.oibLevel = oibLevel;
     }
-    public String getOrgUnitAbbreviation() {
-        return orgUnitAbbreviation;
+
+    public DateTime getOIBLevelStartDate() {
+        return OIBLevelStartDate;
     }
-    public void setOrgUnitAbbreviation(String orgUnitAbbreviation) {
-        this.orgUnitAbbreviation = orgUnitAbbreviation;
+
+    public void setOIBLevelStartDate(DateTime oIBLevelStartDate) {
+        OIBLevelStartDate = oIBLevelStartDate;
     }
-    public String getManagerEmployeeId() {
-        return managerEmployeeId;
+
+    public DateTime getOIBLevelEndDate() {
+        return OIBLevelEndDate;
     }
-    public void setManagerEmployeeId(String managerEmployeeId) {
-        this.managerEmployeeId = managerEmployeeId;
+
+    public void setOIBLevelEndDate(DateTime oIBLevelEndDate) {
+        OIBLevelEndDate = oIBLevelEndDate;
     }
-    public String getBusinessUnit() {
-        return businessUnit;
+
+    public String getTackStatus() {
+        return tackStatus;
     }
-    public void setBusinessUnit(String businessUnit) {
-        this.businessUnit = businessUnit;
+
+    public void setTackStatus(String tackStatus) {
+        this.tackStatus = tackStatus;
     }
-    public DateTime getHireDate() {
-        return hireDate;
-    }
-    public void setHireDate(DateTime hireDate) {
-        this.hireDate = hireDate;
-    }
-    public DateTime getTerminationDate() {
-        return terminationDate;
-    }
-    public void setTerminationDate(DateTime terminationDate) {
-        this.terminationDate = terminationDate;
-    }
-    public DateTime getDateOfBirth() {
-        return dateOfBirth;
-    }
-    public void setDateOfBirth(DateTime dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-   
-    
- 
 
     
-    
-
    
 
 }

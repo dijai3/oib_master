@@ -94,7 +94,6 @@ public class PAOMServiceImpl implements PAOMService {
 
 
     private String getClientId(){
-    
         Optional<String> checkNull = Optional.ofNullable(this.clientId);  
         if(!checkNull.isPresent()){
             this.clientId=utils.getSecretValue(OIBConstants.APPLICATION_OIB_API_KEY);
@@ -189,32 +188,34 @@ public class PAOMServiceImpl implements PAOMService {
         persons.forEach(person -> {
             Map<String, Object> rowContent = new HashMap<String, Object>();
             
-            rowContent.put(OIBConstants.PersonId, person.getPersonId());
-            rowContent.put(OIBConstants.EmployeeId, person.getEmployeeId());
-            rowContent.put(OIBConstants.EmailId, person.getEmailId());
-            rowContent.put(OIBConstants.EmploymentStatus, person.getEmploymentStatus());
-            rowContent.put(OIBConstants.TerminationDate, person.getTerminationDate());
-            rowContent.put(OIBConstants.LegalFirstName, person.getLegalFirstName());
-            rowContent.put(OIBConstants.LegalLastName, person.getLegalLastName());
-            rowContent.put(OIBConstants.CountryKey, person.getCountryKey());
-            rowContent.put(OIBConstants.CompanyCode, person.getCompanyCode());
-            rowContent.put(OIBConstants.CostCentre, person.getCostCentre());
+            rowContent.put(OIBConstants.CountryCode, person.getCountryCode());
+            rowContent.put(OIBConstants.PersonnelNumber, person.getPersonnelArea());
+            rowContent.put(OIBConstants.GlobalID, person.getGlobalID());
+            rowContent.put(OIBConstants.Firstname, person.getFirstName());
+            rowContent.put(OIBConstants.Surname, person.getSurname());
+            rowContent.put(OIBConstants.BirthDate, person.getBirthDate());
             rowContent.put(OIBConstants.JobTitle, person.getJobTitle());
-            rowContent.put(OIBConstants.BusinessUnit, person.getBusinessUnit());
-            rowContent.put(OIBConstants.BusinessUnitType, person.getBusinessUnitType());
-            rowContent.put(OIBConstants.DateOfBirth, person.getDateOfBirth());
-            rowContent.put(OIBConstants.CompanyName, person.getCompanyName());
-            rowContent.put(OIBConstants.PersonalArea, person.getPersonalArea());
-            rowContent.put(OIBConstants.PersonalAreaName, person.getPersonalAreaName());
-            rowContent.put(OIBConstants.PersonalSubArea, person.getPersonalSubArea());
-            rowContent.put(OIBConstants.EmployeeGroup, person.getEmployeeGroup());
-            rowContent.put(OIBConstants.EmployeeSubGroup, person.getEmployeeSubGroup());
-            rowContent.put(OIBConstants.TackStatus, person.getTackStatus());
+            rowContent.put(OIBConstants.WorkEmailAddress, person.getWorkEmailAddress());
             rowContent.put(OIBConstants.JoiningDate, person.getJoiningDate());
+            rowContent.put(OIBConstants.ServiceYearEntry, person.getServiceYearEntry());
+            rowContent.put(OIBConstants.LeavingDate, person.getLeavingDate());
+            rowContent.put(OIBConstants.IT01StartDate, person.getIt01StartDate());
+            rowContent.put(OIBConstants.IT01EndDate, person.getIt01EndDate());
+            rowContent.put(OIBConstants.PayrollArea, person.getPayrollArea());
+            rowContent.put(OIBConstants.CompanyCode, person.getCompanyCode());
+            rowContent.put(OIBConstants.CompanyName, person.getCompanyName());
+            rowContent.put(OIBConstants.PersonnelArea, person.getPersonnelArea());
+            rowContent.put(OIBConstants.PersonnelAreaName, person.getPersonnelAreaName());
+            rowContent.put(OIBConstants.PersonnelSubarea, person.getPersonnelSubarea());
+            rowContent.put(OIBConstants.EmployeeGroup, person.getEmployeeGroup());
+            rowContent.put(OIBConstants.EmployeeSubgroup, person.getEmployeeSubgroup());
+            rowContent.put(OIBConstants.CostCentre, person.getCostCentre());            
+            rowContent.put(OIBConstants.GroupFunction, person.getGroupFunction());
             rowContent.put(OIBConstants.OIBLevel, person.getOibLevel());
             rowContent.put(OIBConstants.OIBLevelStartDate, person.getOIBLevelStartDate());
             rowContent.put(OIBConstants.OIBLevelEndDate, person.getOIBLevelEndDate());
-            rowContent.put(OIBConstants.GroupFunction, person.getGroupFunction());
+            rowContent.put(OIBConstants.TackStatus, person.getTackStatus());
+             // rowContent.put(OIBConstants.EmploymentStatus, person.ge());
 
             builder.addRow(rowContent);
         });

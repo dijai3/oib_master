@@ -3,6 +3,7 @@ package com.ikea.oibmb.mapper;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.google.api.client.util.DateTime;
 import com.google.cloud.bigquery.FieldValueList;
@@ -22,32 +23,39 @@ public class POAMDataMapper {
 
     private Person getPersonObject(FieldValueList line) {
         Person person = new Person();
-        person.setPersonId(line.get(OIBConstants.PersonId).getValue().toString());
-        person.setEmployeeId(line.get(OIBConstants.EmployeeId).getValue().toString());   
-        person.setEmploymentStatus(line.get(OIBConstants.EmploymentStatus).getValue().toString());
-        person.setCountryKey(line.get(OIBConstants.CountryKey).getValue().toString());
-        person.setCostCentre(line.get(OIBConstants.CostCentre).getValue().toString());
-        person.setBusinessUnit(line.get(OIBConstants.BusinessUnit).getValue().toString());
-        person.setEmailId(line.get(OIBConstants.EmailId).getValue().toString());
-        person.setTerminationDate(new DateTime(line.get(OIBConstants.TerminationDate).getValue().toString()));
-        person.setLegalFirstName(line.get(OIBConstants.LegalFirstName).getValue().toString());
-        person.setLegalLastName(line.get(OIBConstants.LegalLastName).getValue().toString()); 
-        person.setCompanyCode(line.get(OIBConstants.CompanyCode).getValue().toString());   
-        person.setJobTitle(line.get(OIBConstants.JobTitle).getValue().toString());   
-        person.setBusinessUnitType(line.get(OIBConstants.BusinessUnitType).getValue().toString());
-        person.setDateOfBirth(new DateTime(line.get(OIBConstants.DateOfBirth).getValue().toString()));
+        person.setCountryCode(line.get(OIBConstants.CountryCode).getValue().toString());
+        person.setPersonnelNumber(Integer.parseInt(line.get(OIBConstants.PersonnelNumber).getValue().toString()));   
+        person.setGlobalID(Integer.parseInt(line.get(OIBConstants.GlobalID).getValue().toString()));
+        person.setFirstName(line.get(OIBConstants.Firstname).getValue().toString());
+        person.setSurname(line.get(OIBConstants.Surname).getValue().toString());
+        person.setBirthDate(new DateTime(line.get(OIBConstants.BirthDate).getValue().toString()));
+        person.setJobTitle(line.get(OIBConstants.JobTitle).getValue().toString());
+        person.setWorkEmailAddress(line.get(OIBConstants.WorkEmailAddress).getValue().toString());
+        person.setJoiningDate(new DateTime(line.get(OIBConstants.JoiningDate).getValue().toString())); 
+        person.setServiceYearEntry(new DateTime(line.get(OIBConstants.ServiceYearEntry).getValue().toString()));   
+        person.setLeavingDate(new DateTime(line.get(OIBConstants.LeavingDate).getValue().toString()));   
+        person.setIt01StartDate(new DateTime(line.get(OIBConstants.IT01StartDate).getValue().toString()));
+        person.setIt01EndDate(new DateTime(line.get(OIBConstants.IT01EndDate).getValue().toString()));
+        person.setPayrollArea(line.get(OIBConstants.PayrollArea).getValue().toString());
+        person.setCompanyCode(Integer.parseInt(line.get(OIBConstants.CompanyCode).getValue().toString()));
         person.setCompanyName(line.get(OIBConstants.CompanyName).getValue().toString());
-        person.setPersonalArea(line.get(OIBConstants.PersonalArea).getValue().toString());
-        person.setPersonalAreaName(line.get(OIBConstants.PersonalAreaName).getValue().toString());
-        person.setPersonalSubArea(line.get(OIBConstants.PersonalSubArea).getValue().toString());
+        person.setPersonnelArea(line.get(OIBConstants.PersonnelArea).getValue().toString());
+        person.setPersonnelAreaName(line.get(OIBConstants.PersonnelAreaName).getValue().toString());
+        person.setPersonnelSubarea(line.get(OIBConstants.PersonnelSubarea).getValue().toString());
         person.setEmployeeGroup(line.get(OIBConstants.EmployeeGroup).getValue().toString());
-        person.setEmployeeSubGroup(line.get(OIBConstants.EmployeeSubGroup).getValue().toString());
-        person.setTackStatus(line.get(OIBConstants.TackStatus).getValue().toString());
-        person.setJoiningDate(new DateTime(line.get(OIBConstants.JoiningDate).getValue().toString()));
-        person.setOibLevel(line.get(OIBConstants.OIBLevel).getValue().toString());
+        person.setEmployeeSubgroup(line.get(OIBConstants.EmployeeSubgroup).getValue().toString());
+        person.setCostCentre(line.get(OIBConstants.CostCentre).getValue().toString());
+        Optional<Object> groupFunction = Optional.ofNullable(line.get(OIBConstants.GroupFunction).getValue());
+        if(groupFunction.isPresent()){
+            person.setGroupFunction(line.get(OIBConstants.GroupFunction).getValue().toString());
+        }
+        person.setOibLevel(Integer.parseInt(line.get(OIBConstants.OIBLevel).getValue().toString()));
         person.setOIBLevelStartDate(new DateTime(line.get(OIBConstants.OIBLevelStartDate).getValue().toString()));
         person.setOIBLevelEndDate(new DateTime(line.get(OIBConstants.OIBLevelEndDate).getValue().toString()));
-        person.setGroupFunction(line.get(OIBConstants.GroupFunction).getValue().toString());
+        Optional<Object> tackStatus = Optional.ofNullable(line.get(OIBConstants.TackStatus).getValue());
+        if(tackStatus.isPresent()){
+            person.setTackStatus(line.get(OIBConstants.TackStatus).getValue().toString());
+        }
 
         return person;
     }
