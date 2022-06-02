@@ -49,9 +49,21 @@ public class POAMDataMapper {
         if(groupFunction.isPresent()){
             person.setGroupFunction(line.get(OIBConstants.GroupFunction).getValue().toString());
         }
-        person.setOibLevel(Integer.parseInt(line.get(OIBConstants.OIBLevel).getValue().toString()));
-        person.setOIBLevelStartDate(new DateTime(line.get(OIBConstants.OIBLevelStartDate).getValue().toString()));
-        person.setOIBLevelEndDate(new DateTime(line.get(OIBConstants.OIBLevelEndDate).getValue().toString()));
+        Optional<Object> oibLevel = Optional.ofNullable(line.get(OIBConstants.OIBLevel).getValue());
+        if(oibLevel.isPresent()){
+            person.setOibLevel(Integer.parseInt(line.get(OIBConstants.OIBLevel).getValue().toString()));
+        }
+
+        Optional<Object> oibLevelStartDate = Optional.ofNullable(line.get(OIBConstants.OIBLevelStartDate).getValue());
+        if(oibLevelStartDate.isPresent()){
+            person.setOIBLevelStartDate(new DateTime(line.get(OIBConstants.OIBLevelStartDate).getValue().toString()));
+        }
+        Optional<Object> oibLevelEndDate = Optional.ofNullable(line.get(OIBConstants.OIBLevelEndDate).getValue());
+        if(oibLevelEndDate.isPresent()){
+            person.setOIBLevelEndDate(new DateTime(line.get(OIBConstants.OIBLevelEndDate).getValue().toString()));
+        }
+        
+        
         Optional<Object> tackStatus = Optional.ofNullable(line.get(OIBConstants.TackStatus).getValue());
         if(tackStatus.isPresent()){
             person.setTackStatus(line.get(OIBConstants.TackStatus).getValue().toString());

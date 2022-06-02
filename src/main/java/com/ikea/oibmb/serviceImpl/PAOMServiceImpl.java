@@ -158,7 +158,7 @@ public class PAOMServiceImpl implements PAOMService {
         for(int i=0;i<1;i++){
         // while (!allPagesVisited) {
             ResponseEntity<PAOMResponse> forEntity = restTemplate.exchange(
-                    poamURL + "?recordLimit={limit}&delta={dValue}", HttpMethod.GET,
+                    poamURL + "?recordLimit={limit}&delta={dValue}&&filter=employmentStatus==Active", HttpMethod.GET,
                     getEntity(), PAOMResponse.class, OIBConstants.PAGE_SIZE, delta);
 
             Long totalRecords = forEntity.getBody().getPeopleDomain().getPaom().getData().getTotalRecords();

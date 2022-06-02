@@ -51,20 +51,13 @@ public class BonusLogicServiceImpl implements BonusLogicService {
     private List<Person> applyEligibilityCriteria(List<Person> personList) {
         List<Person> filteredList = new ArrayList<>();
         personList.forEach(person -> {
-            if (//checkPersonStatus(person) &&
-                    checkJoiningDate(person) &&
+            if (checkJoiningDate(person) &&
                     checkTerminationDate(person)) {
                 filteredList.add(person);
             }
         });
         return filteredList;
     }
-
-    // private boolean checkPersonStatus(Person person) {
-    //     if (person.getEmploymentStatus().equalsIgnoreCase("active"))
-    //         return true;
-    //     return false;
-    // }
 
     private boolean checkJoiningDate(Person person) {
         Date joiningDate = new Date(person.getJoiningDate().getValue());// 2021-05-07
